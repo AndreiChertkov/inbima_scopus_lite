@@ -1,0 +1,11 @@
+*~
+.DS_Store
+.thumbs.db
+.Thumbs.db
+__pycache__/
+_.md
+_tmp/
+~$*
+/data/scopus.xlsx
+/data/*.csv
+/result/*.docx
