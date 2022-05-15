@@ -16,7 +16,7 @@
     > Each file contains publications from the first and second quartiles in separate sections, as well as other publications within a single numbering. If necessary, section headings can be removed, which will allow you to get a complete numbered list of publications.
 
 
-### How to update the journals database (optional)
+## How to update the journals database (optional)
 
 Parsed information about journals indexed in the Scopus database is contained in a neat structured form in the file `data/journals.xlsx` in the root of the project (last update: **May 15, 2022**). Several times a year (specifically, 3 times), the information in the Scopus database is updated. To take into account new data, you should perform the following steps:
 
