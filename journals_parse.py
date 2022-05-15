@@ -19,9 +19,14 @@ def build(fpath='./data/scopus.xlsx'):
     codes = _parse_codes(sh)
 
     sh = wb['data']
+    ids = []
     for i in range(2, JOURNALS_MAX):
         id = sh.cell(i, 1).value
+        if not id in ids:
+            ids.append(id)
+
         title = sh.cell(i, 2).value
+
         if not id or not title:
             break
 
@@ -36,14 +41,14 @@ def build(fpath='./data/scopus.xlsx'):
         issn = _parse_issn(issn)
         eissn = _parse_issn(eissn)
         if not issn and not eissn:
-            error += _err('ISSN and EISSN are empty', title)
+            error += _err('ISSN and EISSN are empty [skip]', title)
             continue
 
         numb = sh.cell(i, 9).value
         subj = codes[numb]['full']
         q = f'Q{sh.cell(i, 17).value}'
         if not q in ['Q1', 'Q2', 'Q3', 'Q4']:
-            error += _err('Invalid quartile', title)
+            error += _err('Invalid quartile [skip]', title)
             continue
 
         q1 = [subj] if q == 'Q1' else []
@@ -54,7 +59,7 @@ def build(fpath='./data/scopus.xlsx'):
         journal_ref = journals.get(id)
         if journal_ref:
             if title != journal_ref['title']:
-                text = _err('Invalid id/title pair', title)
+                text = _err('Invalid id/title pair [skip]', title)
                 journal_ref['error'] = '; '.join([journal_ref['error'], text])
             else:
                 journal_ref['q1'].extend(q1)
@@ -63,6 +68,15 @@ def build(fpath='./data/scopus.xlsx'):
                 journal_ref['q4'].extend(q4)
                 journal_ref['quartile'] = _join_q(
                     _get_q(q1, q2, q3, q4), journal_ref['quartile'])
+            continue
+
+        is_repeated_title = False
+        for journal in journals.values():
+            if journal['title'] == title:
+                text = _err('Title repeated [skip]', title)
+                journal['error'] = '; '.join([journal['error'], text])
+                is_repeated_title = True
+        if is_repeated_title:
             continue
 
         journals[id] = {
@@ -87,6 +101,9 @@ def build(fpath='./data/scopus.xlsx'):
             'type': sh.cell(i, 15).value,
             'error': error,
         }
+
+    print(f'... total records in file : {len(ids):-8d}')
+    print(f'... skipped records       : {len(ids)-len(journals):-8d}')
 
     return journals
 
