@@ -15,6 +15,10 @@
 5. The folder `result` will contain all automatically generated reports in the docx-format: lists of publications for each of the authors separately (`result_[surname].docx`), as well as a consolidated list (`result.docx`).
     > Each file contains publications from the first and second quartiles in separate sections, as well as other publications within a single numbering. If necessary, section headings can be removed, which will allow you to get a complete numbered list of publications.
 
+> Some biblio entries contain incorrect journal names. Name mapping can be specified in the `data/journals_map.py` file. Note that a similar problem exists on the Scopus website (the link to the journal for some papers is not working).
+
+> Some biblio entries contain invalid papers. Skipable titles can be specified in the `data/papers_del.py` file.
+
 
 ## How to update the journals database (optional)
 
