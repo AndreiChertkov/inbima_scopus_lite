@@ -10,19 +10,22 @@
 
 1. Download this [repository](https://github.com/AndreiChertkov/inbima_scopus_lite).
 2. Open downloaded folder `inbima_scopus_lite` in terminal (console) and install dependencies by the command (`python 3.7+` is required) `pip install -r requirements.txt`.
-3. Open author profile in Scopus (e.g., [this one](https://www.scopus.com/authid/detail.uri?authorId=8529104000)) and push `Export all` (`Экспортировать все` in russian) button, then enable checkboxes for all types of information and select `csv` format for export. Rename the downloaded file as `[surname].csv` and move it into the `data` folder in the repo.
+3. Open author profile in Scopus (e.g., [this one](https://www.scopus.com/authid/detail.uri?authorId=22988279600)) and push `Export all` (`Экспортировать все` in russian) button, then enable checkboxes for all types of information and select `csv` format for export. Rename the downloaded file as `[surname].csv` and move it into the `data` folder in the repo.
+    > You must be logged in to scopus to be able to perform this action.
 4. Run the main script by the command `python inbima_scopus_lite.py` with optional argument, which relates to lower bound for the year of publication (e.g., `python inbima_scopus_lite.py 2017`). If the argument is not provided, then all publications will be exported.
 5. The folder `result` will contain all automatically generated reports in the docx-format: lists of publications for each of the authors separately (`result_[surname].docx`), as well as a consolidated list (`result.docx`).
     > Each file contains publications from the first and second quartiles in separate sections, as well as other publications within a single numbering. If necessary, section headings can be removed, which will allow you to get a complete numbered list of publications.
 
 > Some biblio entries contain incorrect journal names. Name mapping can be specified in the `data/journals_map.py` file. Note that a similar problem exists on the Scopus website (the link to the journal for some papers is not working).
 
-> Some biblio entries contain invalid papers. Skipable titles can be specified in the `data/papers_del.py` file.
+> Some biblio entries contain invalid papers (`Erratum...`, etc.). Skipable titles can be specified in the `data/papers_del.py` file.
 
 
 ## How to update the journals database (optional)
 
-Parsed information about journals indexed in the Scopus database is contained in a neat structured form in the file `data/journals.xlsx` in the root of the project (last update: **May 15, 2022**). Several times a year (specifically, 3 times), the information in the Scopus database is updated. To take into account new data, you should perform the following steps:
+Parsed information about journals indexed in the Scopus database is contained in a neat structured form in the file `data/journals.xlsx` (last update: **May 15, 2022**). Several times a year (specifically, 3 times), the information in the Scopus database is updated. To take into account new data, you should perform the following steps:
+
+> **Attention**! The instruction below is out of date, as Scopus recently removed the ability to download the file with information about journals (hence steps 1 and 2 below won't work). You can use our current version of the database. Later we will find another way to get an up-to-date database.
 
 1. Go to [Scopus](https://www.scopus.com/sources) and log in to the system (you may need access on behalf of the organization to be able to export data).
 2. Click the `Download Scopus Source List` (`Скачать список источников Scopus` in russian) button above the journals table, select the `Download source titles and metrics` (`Скачать названия источника и показатели` in russian) option, save and unpack the archive, getting a file like `CiteScore-2011-2020-new-methodology-October-2021`. Save the base creation date somewhere (for example, `October 2021`).
@@ -34,4 +37,4 @@ Parsed information about journals indexed in the Scopus database is contained in
 
 ## Author
 
-- [Andrei Chertkov](https://github.com/AndreiChertkov) (a.chertkov@skoltech.ru).
+- [Andrei Chertkov](https://github.com/AndreiChertkov)
